@@ -36,5 +36,4 @@ func main() {
 	// 	Models: database.New(client),
 	// }
 	app.Infolog.Println("connected to mongo successfully ")
-	
 }
