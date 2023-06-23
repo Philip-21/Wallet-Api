@@ -5,6 +5,7 @@ import (
 	"os"
 	"wallet-api/config"
 	"wallet-api/database"
+	"wallet-api/handlers"
 
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -12,6 +13,8 @@ import (
 var app *config.AppConfig
 var infoLog *log.Logger
 var errorLog *log.Logger
+
+const portNumber = ":8080"
 
 var client *mongo.Client
 
@@ -36,4 +39,13 @@ func main() {
 	// 	Models: database.New(client),
 	// }
 	app.Infolog.Println("connected to mongo successfully ")
+
+	//running the application
+	app.Infolog.Printf("Starting application on port %s", portNumber)
+	r := Routes(handlers.Repo)
+	err = r.Run(portNumber)
+	if err != nil {
+		app.Errorlog.Fatal("Cant run app :", err)
+	}
+
 }
