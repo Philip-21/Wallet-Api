@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 
-const WebSocketExample = () => {
+const WebSocket = () => {
   const socketRef = useRef(null);
 
   useEffect(() => {
-    // Establish a WebSocket connection when the component mounts
-    //establishes to the backend server
+    // Establish a WebSocket connection with the server for real-time communication.
+    // when the component mounts establishes to the backend server
     socketRef.current = new WebSocket('ws://localhost:8080/ws');
 
     // Handle incoming messages from the server
@@ -33,4 +33,4 @@ const WebSocketExample = () => {
   );
 };
 
-export default WebSocketExample;
+export default WebSocket;
