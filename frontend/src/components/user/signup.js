@@ -9,6 +9,7 @@ const Signup = () => {
 
   const handleSignUp = async () => {
     try {
+      //The backend URL is used in the axios requests made from the frontend components to communicate with the backend server.
       const response = await axios.post('http://localhost:8080/backend/signup', {
         username: username,
         password: password
