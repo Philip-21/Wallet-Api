@@ -29,7 +29,7 @@ func ConnectToDB() (*mongo.Client, error) {
 
 	//close connection
 	defer func() {
-		if err = client.Disconnect(ct); err != nil {
+		if err = conn.Disconnect(ct); err != nil {
 			panic(err)
 		}
 	}()
