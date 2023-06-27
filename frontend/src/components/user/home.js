@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
-import WebSocketExample from './WebSocketExample';
+import WebSocket from '../websockets/websocket';
 
 function Home() {
   const [receivedMessage, setReceivedMessage] = useState('');
@@ -21,7 +21,7 @@ function Home() {
           <p>Received message: {receivedMessage}</p>
         </div>
       </div>
-      <WebSocketExample onMessageReceived={handleWebSocketMessage} />
+      <WebSocket onMessageReceived={handleWebSocketMessage} />
     </div>
   );
 }
