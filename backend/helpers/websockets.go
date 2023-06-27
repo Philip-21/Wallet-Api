@@ -28,7 +28,6 @@ func HandleWebsocket(c*gin.Context){
 		conn.Close()
 		delete(clients, conn)
 	}()
-
 	for {
 		_, message, err := conn.ReadMessage()
 		if err != nil {
@@ -43,7 +42,7 @@ func HandleWebsocket(c*gin.Context){
 
 
 // A function that continiousy listens to the broadcst channel
-func HandeBroadcast() {
+func HandleBroadcast() {
 	for {
 		message := <-broadcast
 
