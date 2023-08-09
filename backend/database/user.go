@@ -2,12 +2,15 @@ package database
 
 import (
 	"context"
+	"errors"
 	"log"
 	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func (u *User) InsertUser(entry User) error {
@@ -26,6 +29,28 @@ func (u *User) InsertUser(entry User) error {
 	}
 	log.Println("User inserted")
 	return nil
+}
+
+func (u *User) AuthUser(email, password string) (string, error) {
+	var entry User
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	defer cancel()
+	collection := client.Database("admin").Collection("user")
+	//include only 1 email
+	projection := bson.M{"email": 1}
+	err := collection.FindOne(ctx, bson.M{"email": entry.Email},
+		options.FindOne().SetProjection(projection)).Decode(&entry)
+	if err != nil {
+		return "", err
+	}
+	err = bcrypt.CompareHashAndPassword([]byte(entry.Password), []byte(password))
+	if err == bcrypt.ErrMismatchedHashAndPassword {
+		log.Println("Incorrect Password")
+		return entry.Password, errors.New("incorrect password")
+	} else if err != nil {
+		return entry.Password, err
+	}
+	return entry.Password, nil
 }
 
 func (u *User) GetUser(id string) (*User, error) {
