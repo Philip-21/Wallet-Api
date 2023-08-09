@@ -15,11 +15,14 @@ import (
 
 func (u *User) InsertUser(entry User) error {
 	collection := client.Database("admin").Collection("user")
-
-	_, err := collection.InsertOne(context.TODO(), User{
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(entry.Password), 12)
+	if err != nil {
+		return err
+	}
+	_, err = collection.InsertOne(context.TODO(), User{
 		Name:      entry.Name,
 		Email:     entry.Email,
-		Password:  entry.Password,
+		Password:  string(hashedPassword),
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 	})
