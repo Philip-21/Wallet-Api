@@ -1,10 +1,11 @@
 // App.js
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Home from './components/Home';
-import Login from './components/Login';
-import Signup from './components/Signup';
-import WebSocket from './components/WebSocketExample';
+import Home from './components/user/home';
+import Login from './components/user/login';
+import Signup from './components/user/signup';
+import WebSocket from './components/websockets/websocket';
+
 
 function App() {
   // Create a WebSocket connection
@@ -21,7 +22,7 @@ function App() {
             <Signup ws={ws} />
           </Route>
         </Switch>
-        <WebSocketExample ws={ws} />
+        <WebSocket ws={ws} />
       </Router>
     );
 }

@@ -11,7 +11,7 @@ import (
 )
 
 func (u *User) InsertUser(entry User) error {
-	collection := client.Database("local").Collection("user")
+	collection := client.Database("admin").Collection("user")
 
 	_, err := collection.InsertOne(context.TODO(), User{
 		Name:      entry.Name,
@@ -32,7 +32,7 @@ func (u *User) GetUser(id string) (*User, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 
-	collection := client.Database("local").Collection("user")
+	collection := client.Database("admin").Collection("user")
 	docID, err := primitive.ObjectIDFromHex(id)
 	if err != nil {
 		return nil, err
@@ -51,7 +51,7 @@ func (u *User) UpdateUser() (*mongo.UpdateResult, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 
-	collection := client.Database("local").Collection("user")
+	collection := client.Database("admin").Collection("user")
 
 	ID, err := primitive.ObjectIDFromHex(u.ID)
 	if err != nil {

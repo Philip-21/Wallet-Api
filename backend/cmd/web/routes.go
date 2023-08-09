@@ -15,6 +15,11 @@ func Routes(app *handlers.Repository) *gin.Engine {
 
 	//register websocket handlers 
 	router.GET("/ws",helpers.HandleWebsocket)
+
+	api := &handlers.Repository{}
+
+	router.GET("/", api.Home)
+	router.GET("/login", api.Login)
 	//start the broadcast routine
 	go helpers.HandleBroadcast()
 
