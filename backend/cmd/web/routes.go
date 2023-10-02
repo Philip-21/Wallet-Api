@@ -21,7 +21,7 @@ func Routes(app *handlers.Repository) *gin.Engine {
 	router.GET("/", api.Home)
 	router.GET("/login", api.Login)
 	//start the broadcast routine
-	go helpers.HandleBroadcast()
+	//go helpers.HandleBroadcast()
 
 	router.Use(gin.Logger())
 	router.Use(cors.New(cors.Config{

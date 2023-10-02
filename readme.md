@@ -1,4 +1,4 @@
- A Simple wallet Api for Simulating and facilitating payments
+ A Simple wallet system for Simulating and facilitating payments
 
  ####  Functionalities 
    Functionalities include for the wallet system includes
