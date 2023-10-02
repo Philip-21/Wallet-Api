@@ -13,19 +13,19 @@ func Routes(app *handlers.Repository) *gin.Engine {
 
 	router := gin.Default()
 
-	//register websocket handlers 
-	router.GET("/ws",helpers.HandleWebsocket)
+	//register websocket handlers
+	router.GET("/ws", helpers.HandleWebsocket)
 
 	api := &handlers.Repository{}
-
 	router.GET("/", api.Home)
 	router.GET("/login", api.Login)
+	router.POST("/signup", api.Signup)
 	//start the broadcast routine
 	//go helpers.HandleBroadcast()
 
 	router.Use(gin.Logger())
 	router.Use(cors.New(cors.Config{
-		AllowOrigins: []string{"https//*", "http://*"},//communicatng with port 3000 enabled
+		AllowOrigins: []string{"https//*", "http://*"}, //communicatng with port 3000 enabled
 		AllowMethods: []string{"GET", "POST", "PUT", "DELETE"},
 		AllowHeaders: []string{"Access-Control-Request-Method", "Access-Control-Request-Headers", "Accept", "Authorization", " Accept-Encoding",
 			"Content-Type", "Connection", " Host", "Origin", "User-Agent", "Referer", "Cache-Control", "X-header", "Token", "X-CSRF-Token"},

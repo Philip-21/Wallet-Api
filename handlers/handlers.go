@@ -27,14 +27,10 @@ type loginpayload struct {
 }
 
 func (m *Repository) Home(c *gin.Context) {
-	c.File("./frontend/src/components/home.js")
+	c.JSON(http.StatusOK, "wallet system up and running")
 }
 
-func (m *Repository) Signup(c *gin.Context) {}
-
-func (m *Repository) Login(c *gin.Context) {}
-
-func (m *Repository) PostSignup(c *gin.Context) {
+func (m *Repository) Signup(c *gin.Context) {
 	var requestPayload userpayload
 	err := c.ShouldBindJSON(&requestPayload)
 	if err != nil {
@@ -53,10 +49,10 @@ func (m *Repository) PostSignup(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error inserting to database": err.Error()})
 	}
 	c.JSON(http.StatusAccepted, "user created")
-	c.Redirect(http.StatusSeeOther, "/user/login")
+	//c.Redirect(http.StatusSeeOther, "/user/login")
 }
 
-func (m *Repository) PostLogin(c *gin.Context) {
+func (m *Repository) Login(c *gin.Context) {
 	var login loginpayload
 	err := c.ShouldBindJSON(&login)
 	if err != nil {

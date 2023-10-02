@@ -14,7 +14,7 @@ import (
 )
 
 func (u *User) InsertUser(entry User) error {
-	collection := client.Database("admin").Collection("user")
+	collection := client.Database("wallet").Collection("user")
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(entry.Password), 12)
 	if err != nil {
 		return err
@@ -38,7 +38,7 @@ func (u *User) AuthUser(email, password string) (string, error) {
 	var entry User
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
-	collection := client.Database("admin").Collection("user")
+	collection := client.Database("wallet").Collection("user")
 	//include only 1 email
 	projection := bson.M{"email": 1}
 	err := collection.FindOne(ctx, bson.M{"email": entry.Email},
@@ -60,7 +60,7 @@ func (u *User) GetUser(id string) (*User, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 
-	collection := client.Database("admin").Collection("user")
+	collection := client.Database("wallet").Collection("user")
 	docID, err := primitive.ObjectIDFromHex(id)
 	if err != nil {
 		return nil, err
@@ -79,7 +79,7 @@ func (u *User) UpdateUser() (*mongo.UpdateResult, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 
-	collection := client.Database("admin").Collection("user")
+	collection := client.Database("wallet").Collection("user")
 
 	ID, err := primitive.ObjectIDFromHex(u.ID)
 	if err != nil {

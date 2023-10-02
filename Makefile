@@ -1,4 +1,4 @@
-start_backend:
+start:
 	go run ./cmd/web
 
 
